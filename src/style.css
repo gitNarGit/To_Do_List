@@ -8,5 +8,24 @@ form{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 8%;
+    margin-top: 5%;
+}
+
+.table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+/*
+.tbody{
+    width: 100%;
+}
+
+.trow{
+    width: 100%;
+}*/
+
+.deleteBtn, .deleteBtn span{
+    z-index: -10;
 }

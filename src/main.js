@@ -3,8 +3,14 @@ import './style.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 
 export default class ToDo extends Component{
 
@@ -17,29 +23,44 @@ export default class ToDo extends Component{
     }
 
     addToDo = () => {
-        if(this.state.inputValue.length) {
-            this.setState({todos: [...this.state.todos, this.state.inputValue]});
-        }
-        else{
-            alert('Field is empty');
+        if(this.state.inputValue.length > 0){
+        this.setState({todos: [...this.state.todos, this.state.inputValue]});
+        }else{
+            alert("Your ToDo field is empty");
         }
         this.setState({inputValue: ""});
-    };
+    }
 
     changeValue = (event) => {
         this.setState({inputValue: event.target.value});
-    };
+    }
+
+    deleteToDo = (event) => {
+
+        let index = event.target.id;
+        let unusedToDo = [];
+
+        
+    }
 
     render(){
 
         let addTo = this.state.todos.map((item, index) => {
             return (
-                <tr key = {index}>
-                    <td><input type = "checkbox"/></td>
-                    <td>{item}</td>
-                </tr>
-            );
-        });
+                    <TableRow key = {index} className = "trow" >
+                        <TableRowColumn>{item}</TableRowColumn>
+                        <TableRowColumn>
+                            <RaisedButton label="Edit" primary={true} />
+                        </TableRowColumn>
+                        <TableRowColumn>
+                            <button onClick = {this.deleteToDo} id = {index}>Delete</button>
+                            {/*<div onClick = {this.deleteToDo} className = "deleteBtn" id = {index}>
+                                <RaisedButton label="Delete" secondary={true} className = "deleteBtn" />
+                            </div>*/}
+                        </TableRowColumn>
+                    </TableRow>
+                    )
+        })
 
         return(
             <MuiThemeProvider>
@@ -50,11 +71,11 @@ export default class ToDo extends Component{
                             <ContentAdd />
                         </FloatingActionButton>
                     </form>
-                    <table>
-                        <tbody>
+                    <Table className = "table" multiSelectable = {true}>
+                        <TableBody className = "tbody">
                             {addTo}
-                        </tbody>
-                    </table>
+                        </TableBody>
+                    </Table>
                 </div>
             </MuiThemeProvider>
         )
